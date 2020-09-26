@@ -46,7 +46,7 @@ $ npm run test:cov
 $ npm run start:dev
 ```
 
-http:localhost:3000/api
+http://localhost:3000/api
 
 ## License
 
