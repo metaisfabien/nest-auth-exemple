@@ -25,7 +25,8 @@ describe('AuthController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    useContainer(app, { fallbackOnErrors: true });
+    useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
     app.useGlobalPipes(new ValidationPipe());
 
     testService = app.get<TestService>(TestService);
@@ -43,10 +44,16 @@ describe('AuthController (e2e)', () => {
   /**
    * Test l'inscription
    */
-  it('/auth/register', async () => {
+  it('auth/register', async () => {
     let res = await request(app.getHttpServer())
       .post('/auth/register')
       .send({ email: 'aaaa', password: TEST_PASSWORD });
+
+    expect(res.body).toHaveProperty('statusCode', 400);
+
+    res = await request(app.getHttpServer())
+      .post('/auth/register')
+      .send({ email: TEST_EMAIL, password: 'aaaa' });
 
     expect(res.body).toHaveProperty('statusCode', 400);
 

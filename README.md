@@ -6,7 +6,7 @@
 
 Exemple d'authentification JWT avec [Nest](https://github.com/nestjs/nest) framework.
 
-Congifuration, Mongoose, validation, serialization, Test unitaire, Test e2e...
+Congifuration, Mongoose, validation, serialization, Sawagger (en mode dev), Test unitaire, Test e2e...
 
 ## Installation
 
@@ -39,6 +39,14 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Swagger UI
+
+```bash
+$ npm run start:dev
+```
+
+http:localhost:3000/api
 
 ## License
 

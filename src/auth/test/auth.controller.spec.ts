@@ -4,12 +4,14 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { getModelToken } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as httpMocks from 'node-mocks-http';
 
 import { AuthService } from '../auth.service';
 import { UserService } from '../../user/user.service';
 import { LocalStrategy } from '../strategies/local.strategy';
 import { JwtStrategy } from '../strategies/jwt.strategy';
 import { UserModel } from '../../user/test/mocked-user-model';
+import { LoginRequestDto } from '../dto/login-request.dto';
 
 const TEST_EMAIL = 'test@xmail.com';
 const TEST_PASSWORD = 'sdfdsfsdfsdfgrth';
@@ -68,7 +70,17 @@ describe('AppController', () => {
   // Authentification
   it('login', async () => {
     const user = await userService.findByEmail(TEST_EMAIL, true);
-    const result = await authController.login({ user });
+    const req: any = httpMocks.createRequest();
+
+    req.user = user;
+
+    const result = await authController.login(
+      req,
+      new LoginRequestDto({
+        email: TEST_EMAIL,
+        password: TEST_PASSWORD,
+      }),
+    );
 
     expect(result).toHaveProperty('accessToken');
   });

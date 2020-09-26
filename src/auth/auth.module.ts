@@ -8,8 +8,6 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
-import { UniqueUserEmail } from './validators/unique-user-email.validator';
-
 @Module({
   imports: [
     UserModule,
@@ -26,13 +24,7 @@ import { UniqueUserEmail } from './validators/unique-user-email.validator';
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    ConfigService,
-    AuthService,
-    LocalStrategy,
-    JwtStrategy,
-    UniqueUserEmail,
-  ],
+  providers: [ConfigService, AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

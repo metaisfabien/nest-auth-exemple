@@ -26,7 +26,7 @@ describe('UserController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    useContainer(app, { fallbackOnErrors: true });
+    useContainer(app.select(AppModule), { fallbackOnErrors: true });
     app.useGlobalPipes(new ValidationPipe());
 
     testService = app.get<TestService>(TestService);
